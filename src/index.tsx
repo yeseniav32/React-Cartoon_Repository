@@ -1,19 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import reportWebVitals from './reportWebVitals';
-import { Home, Dashboard, SignIn } from './components';
+import {StyledEngineProvider } from '@mui/system';
 import './styles.css';
+import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Home, Dashboard, SignIn } from './components';
+import { theme } from './theme/theme';
+import { ThemeProvider } from '@mui/styles';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <Routes>
-        <Route path='/' element={<Home title={'All Day Cartoons!'} />} />
-        <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='/signin' element={<SignIn />} />
-      </Routes>
-    </Router>
+    <Provider store = {store}>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Routes>
+            <Route path='/' element={<Home title={'All Day Cartoons!'} />} />
+            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/signin' element={<SignIn />} />
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
